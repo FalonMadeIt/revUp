@@ -1,13 +1,17 @@
-// TODO: put initialization logic here
+'use strict';
 
-var $ = require("jquery");
+var $ = require('jquery');
+var _ = require('underscore');
+var views = require('views');
+var router = require('../router');
 
-$.ajax({
+router.route('', 'cars', function () {
+  $.ajax({
     url: "car-data.data",
     method: 'GET'
   })
-  
-  .then(parseCarData)
+	
+	.then(parseCarData)
   
   .then( function name(cars) {
     console.log(cars);
