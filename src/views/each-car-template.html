@@ -1,7 +1,7 @@
 <h1>Automobile Details</h1>
 
 <ul class="car-detail">
-  <% _.pairs(m.car).forEach(function (pair) { %>
+  <% _.rest(_.pairs(m.car)).forEach(function (pair) { %>
     <li>
       <%- pair[0] %>
       <%- pair[1] %>
@@ -9,7 +9,7 @@
   <% }) %>
 </ul>
 
-<div>
+<div class="car-chart">
   
 </div>
 
