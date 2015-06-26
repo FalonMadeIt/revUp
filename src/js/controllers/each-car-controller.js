@@ -5,20 +5,15 @@ var _ = require('underscore');
 var views = require('views');
 var router = require('../router');
 
-router.route('', 'cars', function () {
+router.route( 'cars/:id', function (carId) {
   $.ajax({
     url: "car-data.data",
     method: 'GET'
   })
 	
 	.then(parseCarData)
-   .then(renderCars)
-  // .then( function name(cars) {
-  //   console.log(cars);
-  // }) 
-  
- 
-  
+  .then(renderEachCar)
+
   
   function parseCarData(carData) {
     return carData
@@ -28,19 +23,22 @@ router.route('', 'cars', function () {
         
         return {
           id: i,
-          make: cells[2]
-        //   cityMpg: cells[23],
-        //   highwayMpg: cells[24],
-        //   price: cells[25]
+          make: cells[2],
+          cityMpg: cells[23],
+          highwayMpg: cells[24],
+          price: cells[25]
         };
       });
   }
 	
-	  function renderCars(carsArray) {
-    var carsTemplate = views['all-cars-template'];
-    var templateFn = _.template(carsTemplate, { variable: 'm' });
-    var carsHTML = templateFn({ cars: carsArray });
+  
+  function renderEachCar(carsArray) {
+    var car = _.findWhere(carsArray, { id: parseInt(carId) });
+    var eachCarTemplate = views['each-car-template'];
+    var templateFn = _.template(eachCarTemplate, { variable: 'm' });
+    var carsHTML = templateFn({ car: car });
     
     $('.main-content').html(carsHTML);
   }
 });
+
